@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:furniture_app/pages/Login_page.dart';
+import 'package:furniture_app/widgets/my_button.dart';
 
-import '../contant/app_color.dart';
+import '../constant/app_color.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
@@ -58,6 +60,25 @@ class SplashPage extends StatelessWidget {
                 letterSpacing: 2.5,
                 wordSpacing: 2,
                 height: 2.5,
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 150,
+            left: 0,
+            right: 0,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 60),
+              child: Center(
+                child: MyButton(
+                  text: 'Get Started',
+                  onTap: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginPage()),
+                    );
+                  },
+                ),
               ),
             ),
           ),
