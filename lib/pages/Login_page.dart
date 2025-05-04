@@ -4,6 +4,8 @@ import 'package:furniture_app/widgets/my_button.dart';
 import 'package:furniture_app/widgets/my_text_field.dart';
 import 'package:gap/gap.dart';
 
+import 'sign_up_page.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -14,6 +16,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,26 +65,29 @@ class _LoginPageState extends State<LoginPage> {
             Container(
               height: 500,
               width: double.infinity,
-              margin: const EdgeInsets.only(right: 30, top: 20),
+              margin: const EdgeInsets.only(right: 30, top: 30),
               padding: const EdgeInsets.only(left: 30, top: 30),
               decoration: BoxDecoration(
                 color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(20),
+                  bottomRight: Radius.circular(20),
+                ),
                 boxShadow: [
                   BoxShadow(
-                    color: Color.fromARGB(51, 128, 128, 128),
+                    color: Colors.grey.shade200,
                     spreadRadius: 4,
                     blurRadius: 10,
-                    offset: Offset(0, -4),
+                    offset: Offset(0, -3),
                   ),
                   BoxShadow(
-                    color: Color.fromARGB(77, 128, 128, 128),
+                    color: Colors.grey.shade200,
                     spreadRadius: 6,
                     blurRadius: 12,
-                    offset: Offset(0, 4),
+                    offset: Offset(0, 3),
                   ),
                 ],
               ),
-
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -118,18 +124,27 @@ class _LoginPageState extends State<LoginPage> {
                         'Don\'t have an account?',
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: 16,
+                          fontSize: 14,
                           fontWeight: FontWeight.bold,
                           letterSpacing: 1.5,
                         ),
                       ),
-                      Text(
-                        ' Sign Up',
-                        style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 14,
-
-                          letterSpacing: 1.5,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SignUpPage(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          ' Sign Up',
+                          style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 14,
+                            letterSpacing: 1.5,
+                          ),
                         ),
                       ),
                     ],
