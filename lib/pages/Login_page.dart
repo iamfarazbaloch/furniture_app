@@ -66,16 +66,16 @@ class _LoginPageState extends State<LoginPage> {
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.shade200,
-                    spreadRadius: 8,
-                    blurRadius: 7,
-                    offset: Offset(8, -2),
+                    color: Color.fromARGB(51, 128, 128, 128),
+                    spreadRadius: 4,
+                    blurRadius: 10,
+                    offset: Offset(0, -4),
                   ),
                   BoxShadow(
-                    color: Colors.grey.shade100,
-                    spreadRadius: 8,
-                    blurRadius: 7,
-                    offset: Offset(4, 12),
+                    color: Color.fromARGB(77, 128, 128, 128),
+                    spreadRadius: 6,
+                    blurRadius: 12,
+                    offset: Offset(0, 4),
                   ),
                 ],
               ),
@@ -104,6 +104,30 @@ class _LoginPageState extends State<LoginPage> {
                   Padding(
                     padding: const EdgeInsets.only(right: 24.0),
                     child: MyButton(text: 'Login'),
+                  ),
+                  Gap(40),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Don\'t have an account?',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1.5,
+                        ),
+                      ),
+                      Text(
+                        ' Sign Up',
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 14,
+
+                          letterSpacing: 1.5,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
