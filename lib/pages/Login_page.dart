@@ -12,6 +12,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,10 +86,13 @@ class _LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Email', style: TextStyle(color: mediumText)),
-                  MyTextField(),
+                  MyTextField(controller: emailController, obscureText: false),
                   Gap(40),
                   Text('Password', style: TextStyle(color: mediumText)),
-                  MyTextField(),
+                  MyTextField(
+                    controller: passwordController,
+                    obscureText: true,
+                  ),
                   Gap(40),
                   Center(
                     child: Text(
