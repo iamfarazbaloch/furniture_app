@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:furniture_app/constant/app_color.dart';
-import 'package:furniture_app/pages/home_page.dart';
+import 'package:furniture_app/pages/app_main_screen.dart';
 import 'package:furniture_app/widgets/my_button.dart';
 import 'package:furniture_app/widgets/my_text_field.dart';
 import 'package:gap/gap.dart';
@@ -130,7 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => HomePage(),
+                                builder: (context) => AppMainScreen(),
                               ),
                             );
                           },
