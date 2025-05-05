@@ -3,6 +3,7 @@ import 'package:furniture_app/constant/app_color.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 import '../provider/furniture_provider.dart';
+import 'cart_page.dart';
 import 'detail_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -58,7 +59,17 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ],
                   ),
-                  Image.asset('assets/icons/cart.png'),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const CartPage(),
+                        ),
+                      );
+                    },
+                    child: Image.asset('assets/icons/cart.png'),
+                  ),
                 ],
               ),
             ),
