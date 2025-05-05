@@ -1,15 +1,190 @@
 import 'package:flutter/material.dart';
+import 'package:furniture_app/model/furniture_item.dart';
+import 'package:furniture_app/widgets/my_button.dart';
+import 'package:gap/gap.dart';
 
 class DetailPage extends StatefulWidget {
-  const DetailPage({super.key});
+  final FurnitureItem product;
+  const DetailPage({super.key, required this.product});
 
   @override
   State<DetailPage> createState() => _DetailPageState();
 }
 
 class _DetailPageState extends State<DetailPage> {
+  int _quantity = 1;
+
+  void _incrementQuantity() {
+    setState(() {
+      _quantity++;
+    });
+  }
+
+  void _decrementQuantity() {
+    if (_quantity > 1) {
+      setState(() {
+        _quantity--;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    final size = MediaQuery.of(context).size;
+
+    return Scaffold(
+      body: Column(
+        children: [
+          Stack(
+            children: [
+              ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(40),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 50.0),
+                  child: Image.asset(
+                    widget.product.image,
+                    width: double.infinity,
+                    height: size.height * 0.5,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 40,
+                left: 24,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.shade300,
+                        spreadRadius: 2,
+                        blurRadius: 7,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: IconButton(
+                    icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+              ),
+              Positioned(
+                top: size.height * 0.15,
+                left: 0,
+                child: Image.asset('assets/images/Color.png'),
+              ),
+            ],
+          ),
+          Expanded(
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(20),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(topRight: Radius.circular(32)),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.product.name,
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Gap(24),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '\$${widget.product.price.toStringAsFixed(2)}',
+                        style: const TextStyle(
+                          fontSize: 20,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade200,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Row(
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.remove),
+                              onPressed: _decrementQuantity,
+                            ),
+                            Text(
+                              '$_quantity',
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.add),
+                              onPressed: _incrementQuantity,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Gap(24),
+                  Row(
+                    children: [
+                      Icon(Icons.star, color: Colors.amber.shade600),
+                      Gap(5),
+                      Text(
+                        widget.product.rating.toString(),
+                        style: const TextStyle(color: Colors.black),
+                      ),
+                      Text(
+                        ' (${widget.product.review})',
+                        style: TextStyle(color: Colors.grey.shade800),
+                      ),
+                    ],
+                  ),
+                  const Gap(24),
+                  const Text(
+                    'This furniture piece is made from high-quality material and designed for modern homes. Stylish, durable, and affordable.',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black87,
+                      letterSpacing: 1,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Spacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(22),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade100,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Icon(Icons.favorite_border, color: Colors.black),
+                      ),
+                      Gap(20),
+                      Expanded(child: MyButton(text: 'Add to Cart')),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

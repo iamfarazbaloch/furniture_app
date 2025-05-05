@@ -3,7 +3,7 @@ class FurnitureItem {
   final String image;
   final double price;
   final String description;
-  final double review;
+  final String review;
   final double rating;
 
   FurnitureItem({

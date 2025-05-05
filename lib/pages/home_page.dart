@@ -3,6 +3,7 @@ import 'package:furniture_app/constant/app_color.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 import '../provider/furniture_provider.dart';
+import 'detail_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -127,8 +128,8 @@ class _HomePageState extends State<HomePage> {
                   itemCount: items.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    mainAxisSpacing: 20,
-                    crossAxisSpacing: 20,
+                    mainAxisSpacing: 2,
+                    crossAxisSpacing: 2,
                     childAspectRatio: 0.53,
                   ),
                   itemBuilder: (context, index) {
@@ -147,7 +148,16 @@ class _HomePageState extends State<HomePage> {
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(12),
                                 child: GestureDetector(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder:
+                                            (context) =>
+                                                DetailPage(product: item),
+                                      ),
+                                    );
+                                  },
                                   child: Image.asset(
                                     item.image,
                                     fit: BoxFit.cover,
