@@ -4,7 +4,6 @@ import 'package:furniture_app/pages/app_main_screen.dart';
 import 'package:furniture_app/widgets/my_button.dart';
 import 'package:furniture_app/widgets/my_text_field.dart';
 import 'package:gap/gap.dart';
-
 import 'sign_up_page.dart';
 
 class LoginPage extends StatefulWidget {
