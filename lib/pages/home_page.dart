@@ -16,6 +16,7 @@ class _HomePageState extends State<HomePage> {
     'Table': 'assets/icons/table.png',
     'Armchair': 'assets/icons/sofa1.png',
     'Bed': 'assets/icons/bed.png',
+    'Lamp': 'assets/icons/lamp.png',
   };
 
   int _selectedIndex = 0;
@@ -27,7 +28,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -56,12 +57,11 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            const Gap(20),
+            const Gap(24),
             SizedBox(
               height: 100,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 itemCount: _categories.length,
                 itemBuilder: (context, index) {
                   final categoryName = _categories.keys.elementAt(index);
@@ -75,7 +75,7 @@ class _HomePageState extends State<HomePage> {
                       });
                     },
                     child: Padding(
-                      padding: const EdgeInsets.only(right: 12.0),
+                      padding: const EdgeInsets.only(left: 16.0),
                       child: Column(
                         children: [
                           Container(
@@ -86,12 +86,14 @@ class _HomePageState extends State<HomePage> {
                               color:
                                   isSelected
                                       ? Colors.black
-                                      : Colors.grey.shade300,
+                                      : Colors.grey.shade200,
                             ),
                             padding: const EdgeInsets.all(8),
                             child: ColorFiltered(
-                              colorFilter: const ColorFilter.mode(
-                                Colors.white,
+                              colorFilter: ColorFilter.mode(
+                                isSelected
+                                    ? Colors.white
+                                    : Colors.grey.shade500,
                                 BlendMode.srcIn,
                               ),
                               child: Image.asset(categoryImage),
@@ -101,8 +103,9 @@ class _HomePageState extends State<HomePage> {
                           Text(
                             categoryName,
                             style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              color: isSelected ? Colors.black : Colors.grey,
                             ),
                           ),
                         ],
