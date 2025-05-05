@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:furniture_app/constant/app_color.dart';
 import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
+import '../provider/furniture_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -23,6 +25,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final items = Provider.of<FurnitureProvider>(context).items;
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -113,6 +117,54 @@ class _HomePageState extends State<HomePage> {
                     ),
                   );
                 },
+              ),
+            ),
+            const Gap(16),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: GridView.builder(
+                  itemCount: items.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 20,
+                    crossAxisSpacing: 20,
+                    childAspectRatio: 0.75,
+                  ),
+                  itemBuilder: (context, index) {
+                    final item = items[index];
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Image.asset(
+                              item.image,
+                              fit: BoxFit.contain,
+                              width: double.infinity,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          item.name,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                        Text(
+                          '\$${item.price.toStringAsFixed(2)}',
+                          style: const TextStyle(
+                            color: Colors.grey,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
               ),
             ),
           ],
