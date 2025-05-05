@@ -4,6 +4,7 @@ class FurnitureItem {
   final double price;
   final String description;
   final double review;
+  final double rating;
 
   FurnitureItem({
     required this.name,
@@ -11,5 +12,6 @@ class FurnitureItem {
     required this.price,
     required this.description,
     required this.review,
+    required this.rating,
   });
 }

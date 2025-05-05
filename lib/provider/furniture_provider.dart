@@ -4,20 +4,41 @@ import '../model/furniture_item.dart';
 class FurnitureProvider with ChangeNotifier {
   final List<FurnitureItem> _items = [
     FurnitureItem(
-      name: 'Modern Chair',
-      image: 'assets/images/chair1.png',
-      price: 120.0,
-      description: 'Comfortable and stylish modern chair.',
-      review: 4.5,
+      name: 'Black Simple Lamp',
+      image: 'assets/images/lamp.png',
+      price: 12.0,
+      description:
+          'Black simple lamp is made of by natural wood. The design that is very simple and minimal. This is truly one of the best furnitures in any family for now. With 3 different colors, you can easily select the best match for your home.',
+      review: 200,
+      rating: 4.5,
     ),
     FurnitureItem(
-      name: 'Wooden Table',
-      image: 'assets/images/table1.png',
-      price: 250.0,
-      description: 'Elegant wooden table for your dining room.',
-      review: 4.8,
+      name: 'Minimal Stand',
+      image: 'assets/images/stand.png',
+      price: 25.0,
+      description:
+          'Minimal stand is made of by natural wood. The design that is very simple and minimal. This is truly one of the best furnitures in any family for now. With 3 different colors, you can easily select the best match for your home.',
+      review: 150,
+      rating: 4.7,
     ),
-    // Add more items as needed
+    FurnitureItem(
+      name: 'Coffee Chair',
+      image: 'assets/images/chair.png',
+      price: 20.0,
+      description:
+          'Coffee Chair is made of by natural wood. The design that is very simple and minimal. This is truly one of the best furnitures in any family for now. With 3 different colors, you can easily select the best match for your home.',
+      review: 150,
+      rating: 4.9,
+    ),
+    FurnitureItem(
+      name: 'Simple Desk',
+      image: 'assets/images/desk.png',
+      price: 50.0,
+      description:
+          'Simple Desk is made of by natural wood. The design that is very simple and minimal. This is truly one of the best furnitures in any family for now. With 3 different colors, you can easily select the best match for your home.',
+      review: 150,
+      rating: 4.2,
+    ),
   ];
 
   List<FurnitureItem> get items => _items;
