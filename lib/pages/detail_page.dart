@@ -16,22 +16,6 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
-  int _quantity = 1;
-
-  void _incrementQuantity() {
-    setState(() {
-      _quantity++;
-    });
-  }
-
-  void _decrementQuantity() {
-    if (_quantity > 1) {
-      setState(() {
-        _quantity--;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -39,6 +23,7 @@ class _DetailPageState extends State<DetailPage> {
     final favoriteProvider = Provider.of<FavoriteProvider>(context);
     final isFavorite = favoriteProvider.isFavorite(widget.product);
     final isInCart = cartProvider.isInCart(widget.product);
+    final quantity = cartProvider.getQuantity(widget.product);
 
     return Scaffold(
       body: Column(
@@ -128,10 +113,13 @@ class _DetailPageState extends State<DetailPage> {
                           children: [
                             IconButton(
                               icon: const Icon(Icons.remove),
-                              onPressed: _decrementQuantity,
+                              onPressed: () {
+                                cartProvider.decreaseQuantity(widget.product);
+                                setState(() {});
+                              },
                             ),
                             Text(
-                              '$_quantity',
+                              '$quantity',
                               style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -139,7 +127,10 @@ class _DetailPageState extends State<DetailPage> {
                             ),
                             IconButton(
                               icon: const Icon(Icons.add),
-                              onPressed: _incrementQuantity,
+                              onPressed: () {
+                                cartProvider.increaseQuantity(widget.product);
+                                setState(() {});
+                              },
                             ),
                           ],
                         ),
@@ -198,6 +189,7 @@ class _DetailPageState extends State<DetailPage> {
                           onTap: () {
                             if (!isInCart) {
                               cartProvider.addToCart(widget.product);
+                              setState(() {});
                             }
                           },
                         ),

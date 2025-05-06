@@ -16,39 +16,102 @@ class CartPage extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () => Navigator.pop(context),
         ),
         centerTitle: true,
-        title: const Text('My Cart', style: TextStyle(color: Colors.black)),
+        title: const Text(
+          'My Cart',
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
+        ),
+        iconTheme: const IconThemeData(color: Colors.black),
       ),
-      body:
-          cartItems.isEmpty
-              ? const Center(child: Text('Your cart is empty'))
-              : ListView.builder(
-                itemCount: cartItems.length,
-                itemBuilder: (context, index) {
-                  final item = cartItems[index];
-                  return ListTile(
-                    leading: Image.asset(item.image, width: 50),
-                    title: Text(item.name),
-                    subtitle: Text('\$${item.price.toStringAsFixed(2)}'),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.delete, color: Colors.red),
-                      onPressed: () {
-                        cartProvider.removeFromCart(item);
-                      },
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child:
+            cartItems.isEmpty
+                ? const Center(
+                  child: Text(
+                    'Your cart is empty',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
                     ),
-                  );
-                },
-              ),
+                  ),
+                )
+                : ListView.separated(
+                  itemCount: cartItems.length,
+                  itemBuilder: (context, index) {
+                    final item = cartItems.keys.elementAt(index);
+                    final quantity = cartItems[item]!;
+
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        leading: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.asset(
+                            item.image,
+                            height: 90,
+                            width: 90,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        title: Text(
+                          item.name,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '\$${item.price.toStringAsFixed(2)}',
+                              style: const TextStyle(color: Colors.grey),
+                            ),
+                            const SizedBox(height: 6),
+                            Row(
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.remove),
+                                  onPressed:
+                                      () => cartProvider.decreaseQuantity(item),
+                                ),
+                                Text(
+                                  quantity.toString(),
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.add),
+                                  onPressed:
+                                      () => cartProvider.increaseQuantity(item),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.close, color: Colors.red),
+                          onPressed: () => cartProvider.removeFromCart(item),
+                        ),
+                      ),
+                    );
+                  },
+                  separatorBuilder:
+                      (context, index) => const Divider(
+                        color: Colors.grey,
+                        thickness: 1,
+                        height: 1,
+                      ),
+                ),
+      ),
       bottomNavigationBar:
           cartItems.isNotEmpty
               ? Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.shade200,
@@ -78,7 +141,10 @@ class CartPage extends StatelessWidget {
                         ),
                       ),
                       onPressed: () {},
-                      child: const Text('Checkout'),
+                      child: const Text(
+                        'Checkout',
+                        style: TextStyle(fontSize: 16),
+                      ),
                     ),
                   ],
                 ),
