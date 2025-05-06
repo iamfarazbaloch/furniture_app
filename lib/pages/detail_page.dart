@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:furniture_app/model/furniture_item.dart';
+import 'package:furniture_app/provider/cart_provider.dart';
 import 'package:furniture_app/widgets/my_button.dart';
 import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
+
+import '../provider/favorite_provider.dart';
 
 class DetailPage extends StatefulWidget {
   final FurnitureItem product;
@@ -31,18 +35,22 @@ class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final cartProvider = Provider.of<CartProvider>(context);
+    final favoriteProvider = Provider.of<FavoriteProvider>(context);
+    final isFavorite = favoriteProvider.isFavorite(widget.product);
+    final isInCart = cartProvider.isInCart(widget.product);
 
     return Scaffold(
       body: Column(
         children: [
           Stack(
             children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(40),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 50.0),
+              Padding(
+                padding: const EdgeInsets.only(left: 50),
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(40),
+                  ),
                   child: Image.asset(
                     widget.product.image,
                     width: double.infinity,
@@ -106,9 +114,9 @@ class _DetailPageState extends State<DetailPage> {
                     children: [
                       Text(
                         '\$${widget.product.price.toStringAsFixed(2)}',
-                        style: const TextStyle(
-                          fontSize: 20,
-                          color: Colors.grey,
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: Colors.grey.shade900,
                         ),
                       ),
                       Container(
@@ -167,16 +175,33 @@ class _DetailPageState extends State<DetailPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        padding: const EdgeInsets.all(22),
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade100,
-                          borderRadius: BorderRadius.circular(12),
+                      GestureDetector(
+                        onTap: () {
+                          favoriteProvider.toggleFavorite(widget.product);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(22),
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade100,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Icon(
+                            isFavorite ? Icons.favorite : Icons.favorite_border,
+                            color: isFavorite ? Colors.red : Colors.black,
+                          ),
                         ),
-                        child: Icon(Icons.favorite_border, color: Colors.black),
                       ),
                       Gap(20),
-                      Expanded(child: MyButton(text: 'Add to Cart')),
+                      Expanded(
+                        child: MyButton(
+                          text: isInCart ? 'Added' : 'Add to Cart',
+                          onTap: () {
+                            if (!isInCart) {
+                              cartProvider.addToCart(widget.product);
+                            }
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 ],
